@@ -8,10 +8,18 @@ class BackgroundPainter extends CustomPainter {
     canvas.drawRect(
         Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
+    // Blurred rectangle
+    Rect rect = Offset.zero & size;
+    Paint blurPaint = Paint()
+      ..color = Colors.transparent
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(20));
+    canvas.drawRect(rect, blurPaint);
+
     // Blurred circles
     Paint circlePaint = Paint()
       ..color = const Color.fromARGB(255, 54, 12, 71)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(40));
+      ..maskFilter =
+          MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(200));
 
     canvas.drawCircle(
         Offset(size.width * 0.2, size.height * 0.2), 70, circlePaint);

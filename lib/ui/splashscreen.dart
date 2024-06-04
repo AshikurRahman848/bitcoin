@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           // Custom background using CustomPaint and BackgroundPainter
           CustomPaint(
-            size: Size(double.infinity, double.infinity),
+            size: const Size(double.infinity, double.infinity),
             painter: BackgroundPainter(),
           ),
           // Content
