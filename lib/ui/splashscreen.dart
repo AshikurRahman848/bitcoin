@@ -1,4 +1,4 @@
-import 'package:bitcoin/ui/home.dart';
+import 'package:bitcoin/ui/onboarding/onboarding_view.dart';
 import 'package:bitcoin/utils/backgroundpaint.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -14,9 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 30), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const Homeview()),
+        MaterialPageRoute(builder: (_) => const OnboardingView()),
       );
     });
   }

@@ -1,0 +1,171 @@
+import 'package:bitcoin/common/gradient_border.dart';
+import 'package:bitcoin/common/rounder_button.dart';
+import 'package:bitcoin/ui/welcome_screen.dart';
+import 'package:bitcoin/utils/backgroundpaint.dart';
+import 'package:flutter/material.dart';
+
+class OnboardingSlide extends StatelessWidget {
+  final String title;
+  final String description;
+  final String imagePath;
+  final int currentIndex;
+  final int pageIndex;
+  //final List<Widget> buttons;
+
+  const OnboardingSlide({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.imagePath,
+    required this.currentIndex,
+    required this.pageIndex,
+    //required this.buttons,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CustomPaint(
+          size: Size.infinite,
+          painter: BackgroundPainter(),
+        ),
+        Container(
+          color: Colors.transparent,
+          padding: const EdgeInsets.all(50.0),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                    padding: const EdgeInsets.all(0),
+                    child: Image.asset(imagePath, fit: BoxFit.contain)),
+              ),
+              currentIndex == 2
+                  ? Container()
+                  : Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(0),
+                        //child: Image.asset(imagePath, fit: BoxFit.contain)
+                      ),
+                    ),
+            ],
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 7,
+              child: Container(
+                padding: const EdgeInsets.all(50.0),
+                width: double.infinity,
+                alignment: Alignment.center,
+                // child: currentIndex==2? Container() : Image.asset(imagePath, fit: BoxFit.contain),
+                child: Container(),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: CustomGradientBorder(
+                gradient: const LinearGradient(
+                  colors: [Colors.red, Colors.blue],
+                ),
+                borderWidth: 2.0,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+                borderSideTypes: const {
+                  BorderSideType.left,
+                  BorderSideType.top,
+                  BorderSideType.right
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(30.0),
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 62, 48, 107),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        description,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(3, (index) {
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            width: currentIndex == index ? 30 : 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: currentIndex == index
+                                  ? Colors.blue
+                                  : Colors.white,
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 50),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: RoundedButton(
+                                title: currentIndex == 0 ? "No" : "Skip",
+                                onPressed: () {},
+                                isPrimary: false),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: RoundedButton(
+                                title: currentIndex == 0 ? "Yes" : "Continue",
+                                onPressed: () {
+                                  // Navigating to another screen
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const WelcomeScreen(),
+                                  ));
+                                },
+                                isPrimary: true),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
