@@ -1,8 +1,8 @@
 import 'package:bitcoin/common/rounder_button.dart';
+import 'package:bitcoin/ui/login.dart';
+import 'package:bitcoin/ui/signup.dart';
 import 'package:bitcoin/utils/backgroundpaint.dart';
 import 'package:flutter/material.dart';
-
-// Assume RoundedButton and BackgroundPainter are defined elsewhere
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -58,18 +58,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 150),
                   // Spacer to push buttons to the bottom
-                  const Spacer(),
+                  // const Spacer(),
                   RoundedButton(
                     title: 'Create an Account',
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigating to another screen
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Signinview(),
+                      ));
+                    },
                     isPrimary: true,
                   ),
                   const SizedBox(height: 16),
                   RoundedButton(
                     title: 'Log In',
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigating to another screen
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const LoginView(),
+                      ));
+                    },
                     isPrimary: false,
                   ),
                 ],
@@ -81,5 +91,3 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-
-// Assume RoundedButton and BackgroundPainter classes are defined elsewhere
