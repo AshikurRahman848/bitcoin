@@ -1,3 +1,4 @@
+import 'package:bitcoin/ui/reset/otpscreen.dart';
 import 'package:bitcoin/ui/signup.dart';
 import 'package:bitcoin/utils/backgroundpaint.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _ResetScreenViewState extends State<ResetScreenView> {
                         onPressed: () {
                           // Navigating to another screen
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ResetScreenView(),
+                            builder: (context) => const OtpScreen(),
                           ));
                         },
                         style: ElevatedButton.styleFrom(
