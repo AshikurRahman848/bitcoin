@@ -3,6 +3,9 @@ import 'package:bitcoin/common/rounder_button.dart';
 import 'package:bitcoin/ui/welcome_screen.dart';
 import 'package:bitcoin/utils/backgroundpaint.dart';
 import 'package:flutter/material.dart';
+// import 'gradient_border.dart';
+// import 'rounded_button.dart';
+// import 'welcome_screen.dart';
 
 class OnboardingSlide extends StatelessWidget {
   final String title;
@@ -10,7 +13,6 @@ class OnboardingSlide extends StatelessWidget {
   final String imagePath;
   final int currentIndex;
   final int pageIndex;
-  //final List<Widget> buttons;
 
   const OnboardingSlide({
     super.key,
@@ -19,7 +21,6 @@ class OnboardingSlide extends StatelessWidget {
     required this.imagePath,
     required this.currentIndex,
     required this.pageIndex,
-    //required this.buttons,
   });
 
   @override
@@ -40,17 +41,14 @@ class OnboardingSlide extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                    padding: const EdgeInsets.all(0),
-                    child: Image.asset(imagePath, fit: BoxFit.contain)),
+                  padding: const EdgeInsets.all(0),
+                  child: Image.asset(imagePath, fit: BoxFit.contain),
+                ),
               ),
-              currentIndex == 2
-                  ? Container()
-                  : Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(0),
-                        //child: Image.asset(imagePath, fit: BoxFit.contain)
-                      ),
-                    ),
+              if (currentIndex != 2)
+                Expanded(
+                  child: Container(),
+                ),
             ],
           ),
         ),
@@ -63,7 +61,6 @@ class OnboardingSlide extends StatelessWidget {
                 padding: const EdgeInsets.all(50.0),
                 width: double.infinity,
                 alignment: Alignment.center,
-                // child: currentIndex==2? Container() : Image.asset(imagePath, fit: BoxFit.contain),
                 child: Container(),
               ),
             ),
@@ -138,23 +135,51 @@ class OnboardingSlide extends StatelessWidget {
                         children: [
                           Expanded(
                             child: RoundedButton(
-                                title: currentIndex == 0 ? "No" : "Skip",
-                                onPressed: () {},
-                                isPrimary: false),
+                              title: currentIndex == 0 ? "No" : "Skip",
+                              onPressed: () {
+                                // Handle button click logic
+                                if (currentIndex < 2) {
+                                  PageController _pageController = PageController(initialPage: currentIndex);
+                                  _pageController.animateToPage(
+                                    currentIndex + 1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeIn,
+                                  );
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const WelcomeScreen(),
+                                    ),
+                                  );
+                                }
+                              },
+                              isPrimary: false,
+                            ),
                           ),
                           const SizedBox(
                             width: 20,
                           ),
                           Expanded(
                             child: RoundedButton(
-                                title: currentIndex == 0 ? "Yes" : "Continue",
-                                onPressed: () {
-                                  // Navigating to another screen
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen(),
-                                  ));
-                                },
-                                isPrimary: true),
+                              title: currentIndex == 0 ? "Yes" : "Continue",
+                              onPressed: () {
+                                if (currentIndex < 2) {
+                                  PageController _pageController = PageController(initialPage: currentIndex);
+                                  _pageController.animateToPage(
+                                    currentIndex + 1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeIn,
+                                  );
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const WelcomeScreen(),
+                                    ),
+                                  );
+                                }
+                              },
+                              isPrimary: true,
+                            ),
                           ),
                         ],
                       ),
